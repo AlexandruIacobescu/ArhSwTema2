@@ -82,7 +82,7 @@ public class Logic extends UnicastRemoteObject implements RILogic {
      * @param sCID un sir ce reprezinta ID curs
      * @return un sir, rezultat al procesarii comenzii
      */
-    public String getRegisteredStudents(String sCID)
+    public synchronized String getRegisteredStudents(String sCID)
                   throws RemoteException {
         // Preluarea listei studentilor inregistrati la cursul precizat prin ID curs.
         Course objCourse = this.rmiDataNode.getCourseRecord(sCID);
@@ -105,7 +105,7 @@ public class Logic extends UnicastRemoteObject implements RILogic {
      * @param sSID un sir reprezentand ID-ul studentului
      * @return un sir, rezultat al procesarii comenzii
      */
-    public String getRegisteredCourses(String sSID)
+    public synchronized String getRegisteredCourses(String sSID)
                   throws RemoteException {
         // Obtinerea listei cursurilor la care este inregistrat studentul.
         Student objStudent = this.rmiDataNode.getStudentRecord(sSID);
@@ -128,7 +128,7 @@ public class Logic extends UnicastRemoteObject implements RILogic {
      * @param sSID un sir reprezentand ID-ul studentului
      * @return un sir, rezultat al procesarii comenzii
      */
-    public String getCompletedCourses(String sSID)
+    public synchronized String getCompletedCourses(String sSID)
                   throws RemoteException {
         // Obtinerea listei cursurilor absolvite de student.
         Student objStudent = this.rmiDataNode.getStudentRecord(sSID);
@@ -155,7 +155,7 @@ public class Logic extends UnicastRemoteObject implements RILogic {
      * @param sCID un sir reprezentand ID curs
      * @return un sir, rezultat al procesarii comenzii
      */
-    public String makeARegistration(String sSID, String sCID)
+    public synchronized String makeARegistration(String sSID, String sCID)
                   throws RemoteException {
         // Preluare informatii student si curs.
         Student objStudent = this.rmiDataNode.getStudentRecord(sSID);

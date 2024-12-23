@@ -8,5 +8,5 @@ START java Logic
 PAUSE
 
 CLS
-java Client
+java Client localhost
 

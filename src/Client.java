@@ -30,10 +30,11 @@ public class Client {
      * referinta "remote" la nodul logic. 
      * @param sLogicName numele nodului logic
      */
-    public Client(String sLogicName)
-           throws NotBoundException, MalformedURLException, RemoteException {
+    public Client(String hostname, String sLogicName)
+            throws NotBoundException, MalformedURLException, RemoteException {
         // Obtinerea referintei remote la nodul logic.
-        this.rmiLogicNode = (RILogic) Naming.lookup(sLogicName);
+        String url = "rmi://" + hostname + "/" + sLogicName;
+        this.rmiLogicNode = (RILogic) Naming.lookup(url);
     }
 
     /**
@@ -44,6 +45,7 @@ public class Client {
                 throws RemoteException, IOException {
         // Crearea unui "buffered reader" utilizand fluxul de intrare al sistemului.
         BufferedReader objReader = new BufferedReader(new InputStreamReader(System.in));
+        String clientId = "Client-" + System.currentTimeMillis(); // Unique client ID
 
         while (true) {
             // Afisarea comenzilor disponibile si preluarea selectiei facuta de utilizator.
@@ -57,6 +59,8 @@ public class Client {
             System.out.println("x) Exit");
             System.out.println("\nAlegeti si apasati return >> ");
             String sChoice = objReader.readLine().trim();
+
+            Logger.log(clientId, sChoice); // Log the client's choice
 
             // Executia comenzii 1: Lista studenti.
             if (sChoice.equals("1")) {
@@ -140,31 +144,17 @@ public class Client {
      * @param args array cu parametrii de intrare
      */
     public static void main(String args[]) {
-        // Verificare numar de parametri.
-        if (args.length != 0) {
+        if (args.length != 1) {
             System.out.println("Numar de parametrii incorect");
-            System.out.println("Utilizare: java Client");
+            System.out.println("Utilizare: java Client <hostname>");
             System.exit(1);
         }
 
         try {
-            // Crearea si executarea unui client.
-            Client objClient = new Client(LOGIC_NAME);
+            String hostname = args[0];
+            Client objClient = new Client(hostname, LOGIC_NAME);
             objClient.execute();
-        }
-        catch (java.rmi.ConnectException e) {
-            // Afisare mesaj de eroare si exit.
-            System.err.println("Java RMI error: Verificati daca rmiregistry este pornit.");
-            System.exit(1);
-	}
-        catch (java.rmi.NotBoundException e) {
-            // Afisare mesaj de eroare si exit.
-            System.err.println("Java RMI error: verificat daca nodul logic este pornit.");
-            System.exit(1);
-        }
-
-        catch (Exception e) {
-            // Afisare informatii pentru depanare.
+        } catch (Exception e) {
             System.out.println("Unexpected exception at " + CLIENT_NAME);
             e.printStackTrace();
             System.exit(1);
