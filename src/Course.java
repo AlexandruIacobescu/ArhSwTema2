@@ -1,7 +1,4 @@
 import java.io.Serializable;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.List;
 
 public class Course implements Serializable {
     private String id;

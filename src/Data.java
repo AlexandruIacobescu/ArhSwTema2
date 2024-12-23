@@ -25,7 +25,7 @@ public class Data extends UnicastRemoteObject implements RIData {
                 String id = parts[0];
                 String name = parts[1] + " " + parts[2];
                 String specialization = parts[3];
-                List<String> completedCourses = Arrays.asList(Arrays.copyOfRange(parts, 3, parts.length));
+                List<String> completedCourses = Arrays.asList(Arrays.copyOfRange(parts, 4, parts.length));
                 students.add(new Student(id, name, specialization, completedCourses, new ArrayList<>()));
             }
         } catch (IOException e) {

@@ -8,5 +8,5 @@ public interface RILogic extends Remote {
     List<Student> getStudentsForCourse(String courseId) throws RemoteException;
     List<String> getStudentCourses(String studentId) throws RemoteException;
     List<String> getCompletedCourses(String studentId) throws RemoteException;
-    void registerStudentToCourse(String studentId, String courseId) throws RemoteException;
+    void registerStudentToCourse(String studentId, String courseId, String clientId) throws RemoteException;
 }

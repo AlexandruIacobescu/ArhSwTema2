@@ -1,0 +1,6 @@
+System, ListStudents, 2024-12-23T22:43:57.396142900
+System, ListCourses, 2024-12-23T22:43:59.753312100
+System, ListStudents, 2024-12-23T22:44:49.264703400
+System, ListCourses, 2024-12-23T22:44:58.140081900
+123, RegisterStudentToCourse, 2024-12-23T22:46:36.361361200
+System, GetStudentCourses, 2024-12-23T22:48:41.653862400

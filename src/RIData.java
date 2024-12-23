@@ -6,3 +6,4 @@ public interface RIData extends Remote {
     List<Student> getStudents() throws RemoteException;
     List<Course> getCourses() throws RemoteException;
 }
+

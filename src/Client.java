@@ -4,10 +4,19 @@ import java.util.*;
 
 public class Client {
     public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java Client <host>");
+            return;
+        }
+        String host = args[0];
+
         try {
-            Registry registry = LocateRegistry.getRegistry(1099);
+            Registry registry = LocateRegistry.getRegistry(host, 1099);
             RILogic logic = (RILogic) registry.lookup("Logic");
             Scanner scanner = new Scanner(System.in);
+
+            System.out.print("Enter your client ID: ");
+            String clientId = scanner.nextLine();
 
             while (true) {
                 System.out.println("1. List Students");
@@ -54,7 +63,7 @@ public class Client {
                         String studentId = scanner.nextLine();
                         System.out.print("Enter Course ID: ");
                         String courseId = scanner.nextLine();
-                        logic.registerStudentToCourse(studentId, courseId);
+                        logic.registerStudentToCourse(studentId, courseId, clientId);
                         System.out.println("Student registered successfully.");
                     }
                     case 7 -> {
